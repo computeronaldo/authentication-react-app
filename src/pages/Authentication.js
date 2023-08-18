@@ -7,6 +7,12 @@ function AuthenticationPage() {
 
 export default AuthenticationPage;
 
+export function loader({ request }) {
+  const searchParams = new URL(request.url).searchParams;
+  const message = searchParams.get("message");
+  return message;
+}
+
 export async function action({ request }) {
   const searchParams = new URL(request.url).searchParams;
   const mode = searchParams.get("mode") || "login";
@@ -48,6 +54,10 @@ export async function action({ request }) {
   // Let's chose what's easy for now let's store this inside localStorage.
   const authorizationToken = resData.token;
   localStorage.setItem("token", authorizationToken);
+
+  const expiration = new Date();
+  expiration.setHours(expiration.getHours() + 1);
+  localStorage.setItem("expiration", expiration.toISOString());
 
   return redirect("/");
 }

@@ -4,12 +4,14 @@ import {
   Link,
   useActionData,
   useNavigation,
+  useLoaderData,
 } from "react-router-dom";
 
 import classes from "./AuthForm.module.css";
 
 function AuthForm() {
   const navigation = useNavigation();
+  const message = useLoaderData();
   const invalidationData = useActionData();
   const [searchParams] = useSearchParams();
   const isLogin = searchParams.get("mode") === "login";
@@ -17,6 +19,7 @@ function AuthForm() {
 
   return (
     <>
+      {message && <h3 style={{ color: "red" }}>{message}</h3>}
       <Form method="post" className={classes.form}>
         <h1>{isLogin ? "Log in" : "Create a new user"}</h1>
         {invalidationData && invalidationData.errors && (
