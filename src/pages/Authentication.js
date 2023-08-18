@@ -8,6 +8,7 @@ function AuthenticationPage() {
 export default AuthenticationPage;
 
 export function loader({ request }) {
+  console.log("running in parallel");
   const searchParams = new URL(request.url).searchParams;
   const message = searchParams.get("message");
   return message;

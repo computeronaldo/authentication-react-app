@@ -5,3 +5,8 @@ export const action = () => {
   localStorage.removeItem("expiration");
   return redirect("/");
 };
+
+export const loader = () => {
+  console.log("running in parallel");
+  return null;
+};
